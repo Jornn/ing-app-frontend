@@ -1,19 +1,20 @@
 <template>
   <v-app>
-    <v-card class="mx-auto mt-8" width="350">
+    <v-card class="mx-auto mt-8" width="350" color="blue-grey lighten-4">
       <v-card-title>
-        <h2>Login</h2>
+        <h2 class="mx-auto">Login</h2>
       </v-card-title>
       <v-card-text>
         <v-form v-model="valid">
           <v-text-field
-            :rules="[rules.required]"
+            validate-on-blur
+            :rules="[rules.required, rules.minUsername]"
             v-model="emailOrUsername"
             label="Email or Username"
             prepend-icon="mdi-at"
           />
           <v-text-field
-            :rules="[rules.required, rules.min]"
+            :rules="[rules.required, rules.minPassword]"
             v-model="password"
             :type="showPassword ? 'text' : 'password'"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -39,15 +40,6 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <!-- <v-snackbar
-      v-model="snackbar.show"
-      :color="snackbar.error ? 'error' : 'success'"
-    >
-      {{ snackbar.text }}
-      <v-btn @click="snackbar.show = false" color="blue" text>
-        Close
-      </v-btn>
-    </v-snackbar> -->
   </v-app>
 </template>
 
@@ -63,7 +55,8 @@ export default {
       password: '',
       rules: {
         required: value => !!value || 'This field is required',
-        min: v => v.length >= 8 || 'Min 8 characters'
+        minPassword: v => v.length >= 8 || 'Minimum 8 characters',
+        minUsername: v => v.length >= 1 || 'Minimum 4 characters'
       },
       snackbar: {
         error: false,

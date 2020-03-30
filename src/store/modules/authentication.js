@@ -1,29 +1,30 @@
 import AuthenticationService from '@/services/AuthenticationService.js'
+import Axios from 'axios'
 
 export const namespaced = true
 
 export const state = {
-  loggedIn: false,
-  userId: null
+  user: null
 }
 
 export const mutations = {
-  SET_LOGGED_IN(state, userId) {
-    state.loggedIn = true
-    state.userId = userId
+  SET_LOGGED_IN(state, user) {
+    state.user = user
+    localStorage.setItem('user', JSON.stringify(user))
+    Axios.defaults.headers.common['Authorization'] = `Bearer ${user}`
   },
-  SET_LOGGED_OUT(state) {
-    state.loggedIn = false
-    state.userId = null
+  SET_LOGGED_OUT() {
+    location.reload()
+    localStorage.removeItem('user')
   }
 }
 
 export const actions = {
-  login({ commit, dispatch }, { emailOrUsername, password }) {
-    AuthenticationService.login(emailOrUsername, password).then(response => {
-      console.log(response)
+  login({ commit, dispatch }, userData) {
+    AuthenticationService.login(userData).then(response => {
       if (response.data.success) {
-        commit('SET_LOGGED_IN', response.data.user_id)
+        const { user } = response.data
+        commit('SET_LOGGED_IN', user)
         dispatch(
           'notifications/addNotification',
           { message: response.data.message, type: response.data.type },
@@ -42,7 +43,14 @@ export const actions = {
         )
       }
     })
+  },
+  logout({ commit }) {
+    commit('SET_LOGGED_OUT')
   }
 }
 
-// export const getters = {}
+export const getters = {
+  loggedIn(state) {
+    return !!state.user
+  }
+}

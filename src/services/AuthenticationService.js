@@ -11,11 +11,10 @@ const apiClient = axios.create({
 })
 
 export default {
-  login(username, password) {
+  login(userData) {
     return apiClient
       .post(`/users/login`, {
-        emailOrUsername: username,
-        password: password
+        userData
       })
       .catch(error => {
         console.log(error)
