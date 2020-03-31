@@ -1,8 +1,11 @@
 <template>
   <v-app>
     <div id="app">
-      <navDrawer id="navBar" />
-      <router-view class="router-view" :key="$route.fullPath" />
+      <navBar id="navBar" />
+      <v-content class="mt-8">
+        <router-view :key="$route.fullPath" />
+      </v-content>
+
       <Snackbar />
     </div>
   </v-app>
@@ -10,18 +13,14 @@
 
 <script>
 import Snackbar from '@/components/Snackbar.vue'
-import navDrawer from '@/components/navDrawer.vue'
+import NavBar from '@/components/NavBar.vue'
 
 export default {
   components: {
     Snackbar,
-    navDrawer
+    NavBar
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.router-view {
-  margin-top: 80px;
-}
-</style>
+<style lang="scss" scoped></style>

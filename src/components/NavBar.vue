@@ -1,22 +1,21 @@
 <template>
   <div id="nav">
-    <template>
-      <v-app-bar app class="hidden-xs-and-down" color="blue-grey lighten-2">
-        <v-toolbar-items>
-          <v-btn
-            v-for="item in protectedButtons"
-            :key="item.icon"
-            :to="item.path"
-            :title="item.to"
-            text
-            >{{ item.text }}</v-btn
-          >
-        </v-toolbar-items>
-        <v-spacer></v-spacer>
-        <v-btn v-if="loggedIn" @click="logoutUser" color="error">Logout</v-btn>
-        <v-btn v-else :to="{ name: 'index' }" color="success">Login</v-btn>
-      </v-app-bar>
-    </template>
+    <v-app-bar app class="hidden-xs-and-down" color="primary">
+      <v-toolbar-items>
+        <v-btn
+          v-for="item in protectedButtons"
+          color="fourth"
+          :key="item.icon"
+          :to="item.path"
+          :title="item.to"
+          text
+          >{{ item.text }}</v-btn
+        >
+      </v-toolbar-items>
+      <v-spacer></v-spacer>
+      <v-btn v-if="loggedIn" @click="logoutUser" color="error">Logout</v-btn>
+      <!-- <v-btn v-else :to="{ name: 'index' }" color="success">Login</v-btn> -->
+    </v-app-bar>
   </div>
 </template>
 
@@ -39,9 +38,9 @@ export default {
         {
           icon: 'upload',
           text: 'Upload CSV',
-          title: 'About this demo',
+          title: 'Upload a CSV',
           active: false,
-          path: 'register',
+          path: '/upload',
           protected: true
         },
         {

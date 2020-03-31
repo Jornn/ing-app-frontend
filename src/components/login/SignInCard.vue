@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-    <v-card class="mx-auto mt-8" width="350" color="blue-grey lighten-4">
+  <div>
+    <v-card class="mx-auto" :width="width">
       <v-card-title>
         <h2 class="mx-auto">Login</h2>
       </v-card-title>
@@ -26,27 +26,36 @@
       </v-card-text>
       <v-divider />
       <v-card-actions>
-        <v-btn @click="$emit('changeRegister')" color="info">
-          Register
-        </v-btn>
-        <v-spacer />
         <v-btn
+          :width="width - 15"
           :disabled="!valid"
           @click="authenticate"
           color="success"
-          elevation="5"
         >
           Login
         </v-btn>
       </v-card-actions>
     </v-card>
-  </v-app>
+    <ChangeLoginButton v-on="$listeners" width="90" height="30" color="info">
+      <span slot="text">Don't have an account?</span>
+      <span slot="buttonText">Register</span>
+    </ChangeLoginButton>
+  </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-
+import ChangeLoginButton from '@/components/helpers/ChangeLoginButton.vue'
 export default {
+  props: {
+    width: {
+      type: Number,
+      required: true
+    }
+  },
+  components: {
+    ChangeLoginButton
+  },
   data() {
     return {
       showPassword: false,

@@ -5,7 +5,7 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
-
+import axios from 'axios'
 Vue.config.productionTip = false
 
 const requireComponent = require.context(
@@ -52,6 +52,15 @@ new Vue({
       const userData = JSON.parse(userString)
       this.$store.commit('authentication/SET_LOGGED_IN', userData)
     }
+    axios.interceptors.response.use(
+      response => response,
+      error => {
+        if (error.response.status === 401) {
+          this.$store.dispatch('authentication/logout')
+        }
+        return Promise.reject(error)
+      }
+    )
   },
   render: h => h(App)
 }).$mount('#app')

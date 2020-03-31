@@ -19,19 +19,13 @@
         </template>
       </v-file-input>
 
-      <v-select
-        v-if="loggedIn"
-        :items="uploadedFiles"
-        label="Uploaded files"
-        solo
-      />
+      <v-select :items="uploadedFiles" label="Uploaded files" solo />
 
       <v-card-actions>
         <v-btn :disabled="!file" @click="loadCSV" class="mr-auto" color="info">
           Show uploaded CS
         </v-btn>
         <v-btn
-          v-if="loggedIn"
           :disabled="!file"
           @click="uploadFile"
           class="ml-auto"
@@ -59,6 +53,11 @@
 import moment from 'moment'
 
 export default {
+  props: {
+    files: {
+      type: Array
+    }
+  },
   data() {
     return {
       file: null,
@@ -73,30 +72,6 @@ export default {
         error: false
       },
       uploadedFiles: []
-    }
-  },
-  computed: {
-    uploadEnabled() {
-      return !this.file || !this.$store.state.users.loggedIn
-    },
-    loggedIn() {
-      return this.$store.state.users.loggedIn
-    }
-  },
-  beforeCreate() {
-    if (!this.$store.state.users.loggedIn) {
-      // this.$router.push('/signin')
-    } else {
-      this.$axios
-        .get(`${process.env.BASE_URL}/files/get-uploaded-files`, {
-          params: {
-            userId: this.$store.state.users.userId
-          }
-        })
-        .then(res => {
-          console.log(res.data.uploadedFiles)
-          this.uploadedFiles = res.data.uploadedFiles
-        })
     }
   },
   methods: {
