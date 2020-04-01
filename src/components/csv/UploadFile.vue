@@ -1,7 +1,6 @@
 <template>
-  <!-- <v-app> -->
   <div>
-    <v-card class="mx-auto mt-5" width="500px">
+    <v-card class="mx-auto mt-5" :width="width">
       <v-card-title>
         <h2>Select a file</h2>
       </v-card-title>
@@ -19,43 +18,28 @@
         </template>
       </v-file-input>
 
-      <v-select :items="uploadedFiles" label="Uploaded files" solo />
-
       <v-card-actions>
-        <v-btn :disabled="!file" @click="loadCSV" class="mr-auto" color="info">
-          Show uploaded CS
-        </v-btn>
         <v-btn
+          :width="width - 15"
           :disabled="!file"
           @click="uploadFile"
-          class="ml-auto"
+          class="mx-auto"
           color="success"
         >
           Upload file
         </v-btn>
       </v-card-actions>
     </v-card>
-
-    <v-snackbar
-      v-model="snackbar.show"
-      :color="snackbar.error ? 'error' : 'success'"
-    >
-      {{ snackbar.text }}
-      <v-btn @click="snackbar.show = false" color="blue" text>
-        Close
-      </v-btn>
-    </v-snackbar>
   </div>
-  <!-- </v-app> -->
 </template>
 
 <script>
 import moment from 'moment'
-
 export default {
   props: {
-    files: {
-      type: Array
+    width: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -65,13 +49,7 @@ export default {
       sortKey: '',
       parse_csv: [],
       headers: [],
-      search: '',
-      snackbar: {
-        show: false,
-        text: '',
-        error: false
-      },
-      uploadedFiles: []
+      search: ''
     }
   },
   methods: {
@@ -80,7 +58,6 @@ export default {
       vm.sortKey = key
       vm.sortOrders[key] = vm.sortOrders[key] * -1
     },
-
     loadCSV() {
       if (window.FileReader) {
         const reader = new FileReader()
@@ -91,7 +68,11 @@ export default {
           this.$emit('loadCsv', { csv: this.parse_csv, headers: this.headers })
         }
       } else {
-        console.log('No file reader')
+        this.$store.dispatch('notifcation/addNotification', {
+          message:
+            "Your browser doesn't have a filereader, please try another browser",
+          type: 'error'
+        })
       }
     },
 
@@ -122,14 +103,11 @@ export default {
           return
         } // Jump header line
 
-        // console.log(line)
         const obj = {}
         const currentline = line.substr(1).split('","')
 
         headers.map(function(header, indexHeader) {
           if (indexHeader === 0) {
-            // console.log(currentline[indexHeader])
-            // eslint-disable-next-line quotes
             obj[header] = moment(currentline[indexHeader]).format('DD-MM-YYYY')
           } else {
             obj[header] = currentline[indexHeader]
@@ -147,29 +125,7 @@ export default {
       const formData = new FormData()
       formData.append('file', this.file)
 
-      this.$axios
-        .$post(`${process.env.BASE_URL}/files/upload`, formData, {
-          headers: {
-            'Content-type': 'multipart/form-data'
-          }
-        })
-        .then(res => {
-          if (res.success) {
-            this.$axios.post(`${process.env.BASE_URL}/files/update-user-info`, {
-              userId: this.$store.state.users.userId,
-              fileName: this.file.name
-            })
-            this.snackbar.error = false
-          } else {
-            this.snackbar.error = true
-          }
-          this.loadCSV(this.file)
-          this.snackbar.text = res.message
-          this.snackbar.show = true
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.$store.dispatch('csvFiles/uploadFile', formData)
     }
   }
 }

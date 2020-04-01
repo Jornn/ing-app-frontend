@@ -1,4 +1,4 @@
-import { apiClient } from '@/services/config/axios-config'
+import apiClient from '@/services/config/axios-config'
 import AuthenticationService from '@/services/AuthenticationService.js'
 
 export const namespaced = true
@@ -28,44 +28,40 @@ export const actions = {
           commit('SET_LOGGED_IN', user)
         }
         const { message, type } = response.data
-        dispatch('createNotification', {
-          message,
-          type
-        })
+        dispatch(
+          'notifications/addNotification',
+          { message, type },
+          { root: true }
+        )
       })
       .catch(error => {
         console.log(error)
       })
   },
-  logout({ commit }) {
+  logout({ commit, dispatch }, notification) {
     commit('SET_LOGGED_OUT')
+    if (notification.message) {
+      dispatch('notifications/addNotification', notification, { root: true })
+    } else {
+      dispatch(
+        'notifications/addNotification',
+        {
+          message: 'Logged out successfully',
+          type: 'success'
+        },
+        { root: true }
+      )
+    }
   },
   register({ dispatch }, userData) {
     return AuthenticationService.register(userData)
       .then(response => {
-        const { message, type } = response.data
-        dispatch('createNotification', {
-          message,
-          type
-        })
+        dispatch('notifications/addNotification', response.data, { root: true })
         return response
       })
       .catch(() => {
-        dispatch('createNotification', {})
+        dispatch('notifications/addNotification', {}, { root: true })
       })
-  },
-  createNotification({ dispatch }, notification) {
-    const {
-      message = 'Something went wrong, contact an admin',
-      type = 'error'
-    } = notification
-    dispatch(
-      'notifications/addNotification',
-      { message, type },
-      {
-        root: true
-      }
-    )
   }
 }
 

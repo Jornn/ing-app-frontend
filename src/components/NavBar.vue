@@ -37,19 +37,19 @@ export default {
         },
         {
           icon: 'upload',
-          text: 'Upload CSV',
+          text: 'Csv info',
           title: 'Upload a CSV',
           active: false,
           path: '/upload',
           protected: true
-        },
-        {
-          icon: 'Csv',
-          text: 'Show CSV',
-          title: 'Some stuff that needs doing',
-          active: false,
-          protected: true
         }
+        // {
+        //   icon: 'Csv',
+        //   text: 'Show CSV',
+        //   title: 'Some stuff that needs doing',
+        //   active: false,
+        //   protected: true
+        // }
       ]
     }
   },

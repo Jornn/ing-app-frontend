@@ -7,8 +7,8 @@ export const state = {
 
 export const mutations = {
   SET_NOTIFICATION(state, { message, type }) {
-    state.message = message
-    state.type = type
+    state.message = message || 'Something went wrong, contact an admin'
+    state.type = type || 'error'
   },
 
   REMOVE_NOTIFICATION(state) {
