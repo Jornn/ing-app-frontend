@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     getPath(file) {
-      return `/show/${file.fileName}`
+      return `/show/${file}`
     }
   }
 }

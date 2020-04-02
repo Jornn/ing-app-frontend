@@ -6,6 +6,7 @@ import vuetify from './plugins/vuetify'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 import apiClient from '@/services/config/axios-config'
+
 Vue.config.productionTip = false
 
 const requireComponent = require.context(

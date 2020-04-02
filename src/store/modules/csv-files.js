@@ -8,6 +8,9 @@ export const state = {
 export const mutations = {
   SET_CSV_FILES(state, files) {
     state.files = files
+  },
+  ADD_CSV_FILE(state, file) {
+    state.files.push(file)
   }
 }
 export const actions = {
@@ -32,12 +35,12 @@ export const actions = {
         }
       })
   },
-  uploadFile({ dispatch }, formData) {
+  uploadFile({ commit, dispatch }, { formData, fileName }) {
+    console.log(formData)
     CsvFileService.uploadFile(formData)
       .then(result => {
-        console.log(result)
+        commit('ADD_CSV_FILE', fileName)
         dispatch('notifications/addNotification', result.data, { root: true })
-        dispatch('fetchFileNames')
       })
       .catch(() => {
         dispatch('notifications/addNotification', {}, { root: true })
@@ -46,6 +49,6 @@ export const actions = {
 }
 export const getters = {
   checkFiles(state) {
-    return !!state.files
+    return state.files.length >= 1
   }
 }

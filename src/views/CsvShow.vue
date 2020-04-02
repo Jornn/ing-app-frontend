@@ -1,21 +1,34 @@
 <template>
   <div>
-    <csv-table :headers="headers" :items="csv" class="csv-table" />
+    <csv-table :headers="headers" :items="file" class="csv-table" />
   </div>
 </template>
 
 <script>
 import CsvTable from '../components/csv/CsvTable'
-
+import { parseCsvMixin } from '@/mixins/parseCsvMixin'
 export default {
   components: {
-    CsvTable,
+    CsvTable
+  },
+  mixins: [parseCsvMixin],
+  beforeRouteEnter(to, from, next) {
+    next()
+  },
+  created() {
+    this.file = this.loadCSV(this.csv)
+  },
+  props: {
+    csv: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {
-      csv: [],
       headers: [],
-      cardWidth: 500
+      cardWidth: 500,
+      file: []
     }
   }
 }

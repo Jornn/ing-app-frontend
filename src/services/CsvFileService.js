@@ -1,7 +1,7 @@
 import apiClient from './config/axios-config'
 
 function fetchFileNames() {
-  return apiClient.get('/files/get-uploaded-files')
+  return apiClient.get('/files/get-file-names')
 }
 
 function uploadFile(formData) {

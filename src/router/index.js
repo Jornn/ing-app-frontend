@@ -4,6 +4,7 @@ import Index from '../views/index.vue'
 import CsvUpload from '@/views/CsvUpload.vue'
 import store from '@/store'
 import CsvShow from '@/views/CsvShow.vue'
+import CsvFileService from '@/services/CsvFileService'
 Vue.use(VueRouter)
 
 const routes = [
@@ -24,9 +25,17 @@ const routes = [
     }
   },
   {
-    path: '/show/:file',
+    path: '/show/:fileName',
     name: 'show-file',
-    component: CsvShow
+    component: CsvShow,
+    meta: { requiresAuth: true },
+    props: true,
+    beforeEnter(to, from, next) {
+      CsvFileService.fetchFile(to.params.fileName).then(result => {
+        to.params.csv = result.data.file
+        next()
+      })
+    }
   }
 ]
 
