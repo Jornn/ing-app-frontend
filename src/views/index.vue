@@ -11,16 +11,11 @@
     <template v-else>
       <v-card :width="cardWidth" height="200" class="mx-auto">
         <v-card-title>
-          <h2 class="mx-auto">Welcome</h2>
+          <h2 class="mx-auto">Welcome {{ user.username }}</h2>
         </v-card-title>
         <v-card-text>
           <router-link :to="{ name: 'upload' }">
             To upload a csv, click here
-          </router-link>
-        </v-card-text>
-        <v-card-text>
-          <router-link :to="{ name: 'files' }">
-            To check uploaded files, click here
           </router-link>
         </v-card-text>
       </v-card>
@@ -31,7 +26,7 @@
 <script>
 import RegisterCard from '../components/login/RegisterCard'
 import SignInCard from '../components/login/SignInCard'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   components: {
@@ -51,7 +46,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('authentication', ['loggedIn'])
+    ...mapGetters('authentication', ['loggedIn']),
+    ...mapState('authentication', ['user'])
   }
 }
 </script>

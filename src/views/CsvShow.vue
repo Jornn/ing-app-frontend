@@ -1,20 +1,20 @@
 <template>
   <div>
     <csv-table :headers="headers" :items="file" class="csv-table" />
+    <csv-charts :file="file" :headers="headers"></csv-charts>
   </div>
 </template>
 
 <script>
 import CsvTable from '../components/csv/CsvTable'
 import { parseCsvMixin } from '@/mixins/parseCsvMixin'
+import CsvCharts from '@/components/csv/CsvCharts.vue'
 export default {
   components: {
-    CsvTable
+    CsvTable,
+    CsvCharts
   },
   mixins: [parseCsvMixin],
-  beforeRouteEnter(to, from, next) {
-    next()
-  },
   created() {
     this.file = this.loadCSV(this.csv)
   },

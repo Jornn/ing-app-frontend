@@ -43,12 +43,7 @@ export default {
   },
   data() {
     return {
-      file: null,
-      sortOrders: {},
-      sortKey: '',
-      parse_csv: [],
-      headers: [],
-      search: ''
+      file: null
     }
   },
   methods: {
@@ -59,11 +54,6 @@ export default {
         formData,
         fileName: this.file.name
       })
-    }
-  },
-  watch: {
-    file(oldValue) {
-      console.log(oldValue)
     }
   }
 }

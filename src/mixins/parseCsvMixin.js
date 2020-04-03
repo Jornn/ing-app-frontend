@@ -2,25 +2,8 @@ import moment from 'moment'
 
 export const parseCsvMixin = {
   methods: {
-    returnHeaders(file) {
-      return file[0]
-    },
     loadCSV(file) {
-      // if (window.FileReader) {
-      //   const reader = new FileReader()
-      //   reader.readAsText(file)
-      //   reader.onload = event => {
-      //     const csv = event.target.result
       return this.csvJSON(file)
-      // this.$emit('loadCsv', { csv: this.parse_csv, headers: this.headers })
-      //   }
-      // } else {
-      //   this.$store.dispatch('notifcation/addNotification', {
-      //     message:
-      //       "Your browser doesn't have a filereader, please try another browser",
-      //     type: 'error'
-      //   })
-      // }
     },
     csvJSON(lines) {
       const result = []
@@ -28,18 +11,13 @@ export const parseCsvMixin = {
         .toString()
         .replace(/"/g, '')
         .split(',')
-            headers.forEach((header, index) => {
+      headers.forEach((header, index) => {
         if (index === 0) {
           this.headers.push({ text: header, value: header, width: '8%' })
         } else {
           this.headers.push({ text: header, value: header })
         }
       })
-      // console.log(this.headers)
-      this.parse_header = lines[0].split(',')
-      // lines[0].split(',').forEach(key => {
-      //   this.sortOrders[key] = 1
-      // })
 
       lines.map(function(line, indexLine) {
         if (indexLine < 1) {
@@ -61,12 +39,16 @@ export const parseCsvMixin = {
       })
 
       result.pop() // remove the last item because undefined values
+
+      this.formatData(result)
+
       return result // JavaScript object
     },
-    sortBy(key) {
-      const vm = this
-      vm.sortKey = key
-      vm.sortOrders[key] = vm.sortOrders[key] * -1
+    formatData(data) {
+      data.forEach(row => {
+        row['Bedrag (EUR)'] = row['Bedrag (EUR)'].replace(',', '.')
+        row['Datum'] = moment(row['Datum'], 'DD-MM-YYYY').format('YYYY-MM-DD')
+      })
     }
   }
 }
