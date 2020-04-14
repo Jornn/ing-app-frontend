@@ -37,7 +37,7 @@ export default {
         },
         {
           icon: 'upload',
-          text: 'Csv info',
+          text: 'CSV-INFO',
           title: 'Upload a CSV',
           active: false,
           path: '/upload',

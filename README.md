@@ -1,4 +1,4 @@
-# frontend
+# ING-APP-FRONTEND
 
 ## Project setup
 ```
@@ -10,20 +10,28 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+===
 
-### Run your unit tests
-```
-npm run test:unit
-```
+### Use of app
 
-### Lints and fixes files
-```
-npm run lint
-```
+#### To be able to use app download a CSV from ING
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+##### On the ING website
+1. Login to your ING account
+2. Go to the service page
+3. Click "Af- en bijschrijvingen downloaden"
+4. Select a date and as type use: "Kommegescheiden CSV"
+
+
+#### On the app
+1. Create account
+2. Login
+3. Go to the CSV INFO tab
+4. Upload the downloaded CSV
+5. Open the downloaded CSV and see the information
+
+
+## Example output
+
+![Example output](https://imgur.com/a/8WNQgG0)
