@@ -34,4 +34,4 @@ npm run serve
 
 ## Example output
 
-![Example output](https://imgur.com/a/8WNQgG0)
+![Example output](https://i.imgur.com/Jyfnu9n.png)
