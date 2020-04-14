@@ -11,9 +11,9 @@
             :key="file._id"
             :to="getPath(file)"
           >
-            <v-list-icon>
-              <v-icon>description</v-icon>
-            </v-list-icon>
+            <!-- <v-list-icon> -->
+            <v-icon>description</v-icon>
+            <!-- </v-list-icon> -->
             <v-list-item-content>
               <v-list-item-title v-text="file"> </v-list-item-title>
             </v-list-item-content>
@@ -45,4 +45,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+//
+</style>

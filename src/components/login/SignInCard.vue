@@ -2,7 +2,7 @@
   <div>
     <v-card class="mx-auto" :width="width">
       <v-card-title>
-        <h2 class="mx-auto">Login</h2>
+        <h1 class="mx-auto">Login</h1>
       </v-card-title>
       <v-card-text>
         <v-form v-model="valid">
@@ -11,6 +11,7 @@
             :rules="[rules.required, rules.minUsername]"
             v-model="emailOrUsername"
             label="Email or Username"
+            class="custom-outline"
             prepend-icon="mdi-at"
           />
           <v-text-field
@@ -86,4 +87,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+//
+</style>

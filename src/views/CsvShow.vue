@@ -1,6 +1,6 @@
 <template>
   <div>
-    <csv-table :headers="headers" :items="file" class="csv-table" />
+    <csv-table :headers="headers" :items="file" class="ml-2 mr-2" />
     <csv-charts :file="file" :headers="headers"></csv-charts>
   </div>
 </template>
@@ -34,8 +34,4 @@ export default {
 }
 </script>
 
-<style>
-.csv-table {
-  margin-top: 50px;
-}
-</style>
+<style></style>

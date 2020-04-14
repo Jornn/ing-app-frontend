@@ -1,0 +1,210 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Raleway:400,500");
+// @import "../../static/fonts/allianceblock/style.css";
+// @import "~vue-wysiwyg/dist/vueWysiwyg.css";
+
+// Sizes
+$root-font-size: 15;
+
+$primary-color: #3da5d9;
+// $primary-color: #3F536E;
+$blue-dark: #3f536e;
+$primary-color-dark: #05668d;
+$success-color: #4ece3d;
+$accent-color: #ff610f;
+$error-color: #f26419;
+
+$heading-color: #1e2039;
+$text-color: $blue-dark;
+$text-color-light: #93a2be;
+$hyperlink-color: #3da5d9;
+$icon-color: #7ea8be;
+$light-border-color: #c5d9e8;
+
+$loading: rgba(0, 0, 0, 0.12);
+
+$background-light: #fafbfc;
+$background-dark: $primary-color-dark;
+
+@function calc-rem($px) {
+  $rem: $px / $root-font-size;
+  @return #{$rem}rem;
+}
+@mixin rem($px, $property) {
+  #{$property}: calc-rem($px);
+}
+
+// Sass
+html {
+  overflow: auto; //overruling Vuetify's default styling
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: #{$root-font-size}px;
+  color: $text-color;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  @include rem(22, line-height);
+  height: 100%;
+  width: 100%;
+}
+
+// Headers
+h1,
+h2,
+h3,
+h4 {
+  color: $heading-color;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+}
+
+h1 {
+  @include rem(34, font-size);
+  @include rem(44, line-height);
+  letter-spacing: -0.5px;
+}
+h2 {
+  @include rem(23, font-size);
+  @include rem(26, line-height);
+}
+h3 {
+  @include rem(17, font-size);
+  @include rem(22, line-height);
+  letter-spacing: 1px;
+}
+h4 {
+  @include rem(15, font-size);
+  @include rem(22, line-height);
+}
+
+.test{
+  background: red;
+}
+
+.bg {
+  background-color: $blue-dark;
+  &--white {
+    background-color: #fff;
+  }
+  &--blue-dark {
+    background-color: $blue-dark !important;
+  }
+}
+
+.main-container {
+  height: 100%;
+  background-color: $background-light;
+}
+
+.button {
+  &--text {
+    color: $hyperlink-color;
+    font-weight: 500;
+    text-decoration: none;
+    &--small {
+      @include rem(13, font-size);
+      @include rem(19, line-height);
+    }
+    &:hover {
+      color: $blue-dark;
+    }
+    &:disabled {
+      color: $text-color-light;
+    }
+  }
+  &-icon-outline {
+    border: 1px solid $icon-color;
+    border-radius: 8px;
+    .v-btn__content {
+      .v-icon {
+        color: $icon-color;
+        font-size: 32px;
+      }
+    }
+    &:hover {
+      border-color: $primary-color-dark;
+      background-color: rgba($primary-color-dark, 0.1);
+      .v-btn__content {
+        .v-icon {
+          color: $primary-color-dark;
+        }
+      }
+      &:before {
+        background-color: transparent;
+      }
+    }
+  }
+  &--no-outline:focus {
+    outline: 0;
+  }
+}
+
+.v-btn {
+  border-radius: 4px;
+  vertical-align: top;
+  &__content {
+    text-transform: none;
+  }
+  &--active,
+  &:hover,
+  &:focus {
+    &:before {
+      background-color: transparent;
+    }
+  }
+  &:not(.v-btn--outline) {
+    &.v-btn {
+      &.primary {
+        &:hover {
+          background-color: #0d88d9 !important;
+        }
+      }
+      &.accent {
+        &:hover {
+          background-color: darken($accent-color, 12%) !important;
+        }
+      }
+      &.success {
+        &:hover {
+          background-color: darken($success-color, 12%) !important;
+        }
+      }
+      &.error {
+        &:hover {
+          background-color: darken($error-color, 12%) !important;
+        }
+      }
+    }
+  }
+  &--outline {
+    &:not(.error--text) {
+      &:hover {
+        background-color: rgba(#05668d, 0.1) !important;
+      }
+    }
+  }
+  &-icon-outline {
+    border: 1px solid $icon-color;
+    border-radius: 8px;
+    .v-btn__content {
+      .v-icon {
+        color: $icon-color;
+        font-size: 32px;
+      }
+    }
+    &:hover {
+      border-color: $primary-color-dark;
+      background-color: rgba($primary-color-dark, 0.1);
+      .v-btn__content {
+        .v-icon {
+          color: $primary-color-dark;
+        }
+      }
+      &:before {
+        background-color: transparent;
+      }
+    }
+  }
+}

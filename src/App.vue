@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div id="app">
+    <div id="app" class="main-container">
       <navBar id="navBar" />
       <v-content class="mt-8">
         <router-view :key="$route.fullPath" />
@@ -23,4 +23,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '@/styles/_variables.scss';
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <v-app-bar app class="hidden-xs-and-down" color="primary">
+    <v-app-bar app class="hidden-xs-and-down bg--blue-dark">
       <v-toolbar-items>
         <v-btn
           v-for="item in protectedButtons"
@@ -75,4 +75,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// @import '@/styles/_variables.scss';
+</style>

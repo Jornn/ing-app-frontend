@@ -56,7 +56,13 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <ChangeLoginButton v-on="$listeners" width="50" height="30" color="success">
+    <ChangeLoginButton
+      v-on="$listeners"
+      width="50"
+      height="30"
+      class="mb-5"
+      color="success"
+    >
       <span slot="text">Already have an account?</span>
       <span slot="buttonText">Login</span>
     </ChangeLoginButton>

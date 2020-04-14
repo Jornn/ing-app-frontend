@@ -3,7 +3,7 @@
     <slot name="text"></slot>
     <v-btn
       @click="$emit('changeRegister')"
-      class="btn ml-1"
+      class="btn ml-1 sign-in-btn white--text"
       :width="width"
       :height="height"
       :color="color"
@@ -28,4 +28,6 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+//
+</style>
